@@ -1,0 +1,44 @@
+version: "3"
+services:
+  front:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    container_name: front
+    volumes:
+      - ../:/workspace:cached
+    working_dir: /workspace
+    # depends_on: 
+    #   - api
+    # environment: 
+    # API_HOST: api
+    # API_PORT: 5000
+    ports:
+      - 3000:3000
+    tty: true
+    stdin_open: true
+  # db:
+  #   image: postgres:latest
+  #   container_name: share_tech_db # "Spring Boot 用のDB" という意味の任意の名前
+  #   restart: always
+  #   ports:
+  #       - 5432:5432
+  #   environment:
+  #       POSTGRES_USER: 'dev' # DBのユーザー名（＝DB名）
+  #       POSTGRES_PASSWORD: 'pass' # DBのパスワード
+  #   volumes:
+  #       - ../db:/docker-entrypoint-initdb.d
+  # api:
+  #   build:
+  #     context: ../
+  #     dockerfile: api/Dockerfile
+  #   container_name: sb_api
+  #   restart: always
+  #   ports:
+  #       - 8080:8080 # ホストからデバッグできるようにポートフォーワード
+  #   tty: true
+  #   depends_on:
+  #       - db
+  #   volumes:
+  #       - ../api:/api
+  #   command: "./gradlew bootRun"
